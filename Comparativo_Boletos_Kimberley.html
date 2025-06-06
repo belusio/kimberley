@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Comparativo de Boletos - Condomínio Kimberley</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background-color: #f2f2f2; }
+    h2 { text-align: center; }
+    table { width: 100%; max-width: 700px; margin: auto; border-collapse: collapse; background: #fff; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    th, td { padding: 12px; text-align: center; border: 1px solid #ddd; }
+    th { background-color: #4CAF50; color: white; }
+    input[type="number"] { width: 100px; padding: 5px; }
+    .highlight { font-weight: bold; color: #d9534f; }
+  </style>
+</head>
+<body>
+  <h2>Comparativo de Boletos - Condomínio Kimberley</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Descrição</th>
+        <th>Março (R$)</th>
+        <th>Abril (R$)</th>
+        <th>Maio (R$)</th>
+        <th>Mar-Abr (%)</th>
+        <th>Abr-Mai (%)</th>
+        <th>Mar-Mai (%)</th>
+      </tr>
+    </thead>
+    <tbody id="table-body">
+      <tr>
+        <td>Cota Ordinária Específica</td>
+        <td><input type="number" step="0.01" onchange="calcular(this)"></td>
+        <td><input type="number" step="0.01" onchange="calcular(this)"></td>
+        <td><input type="number" step="0.01" onchange="calcular(this)"></td>
+        <td class="pct"></td>
+        <td class="pct"></td>
+        <td class="pct"></td>
+      </tr>
+      <tr>
+        <td>Cota Ordinária Geral</td>
+        <td><input type="number" step="0.01" onchange="calcular(this)"></td>
+        <td><input type="number" step="0.01" onchange="calcular(this)"></td>
+        <td><input type="number" step="0.01" onchange="calcular(this)"></td>
+        <td class="pct"></td>
+        <td class="pct"></td>
+        <td class="pct"></td>
+      </tr>
+      <tr>
+        <td>Fundo de Reserva Específico</td>
+        <td><input type="number" step="0.01" onchange="calcular(this)"></td>
+        <td><input type="number" step="0.01" onchange="calcular(this)"></td>
+        <td><input type="number" step="0.01" onchange="calcular(this)"></td>
+        <td class="pct"></td>
+        <td class="pct"></td>
+        <td class="pct"></td>
+      </tr>
+      <tr>
+        <td>Fundo de Reserva Geral</td>
+        <td><input type="number" step="0.01" onchange="calcular(this)"></td>
+        <td><input type="number" step="0.01" onchange="calcular(this)"></td>
+        <td><input type="number" step="0.01" onchange="calcular(this)"></td>
+        <td class="pct"></td>
+        <td class="pct"></td>
+        <td class="pct"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <script>
+    function calcular(input) {
+      const row = input.parentElement.parentElement;
+      const tds = row.querySelectorAll("td");
+      const mar = parseFloat(tds[1].querySelector("input").value) || 0;
+      const abr = parseFloat(tds[2].querySelector("input").value) || 0;
+      const mai = parseFloat(tds[3].querySelector("input").value) || 0;
+
+      const pct1 = mar ? (((abr - mar) / mar) * 100).toFixed(2) + '%' : '-';
+      const pct2 = abr ? (((mai - abr) / abr) * 100).toFixed(2) + '%' : '-';
+      const pct3 = mar ? (((mai - mar) / mar) * 100).toFixed(2) + '%' : '-';
+
+      tds[4].textContent = pct1;
+      tds[5].textContent = pct2;
+      tds[6].textContent = pct3;
+    }
+  </script>
+</body>
+</html>
